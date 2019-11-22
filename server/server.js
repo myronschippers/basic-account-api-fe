@@ -27,6 +27,8 @@ app.post('/api/withdraw', (req, res) => {
 
 app.post('/api/deposit', (req, res) => {
     const deposit = req.body.deposit;
+    console.log('/api/deposit - deposit: ', deposit);
+    console.log('/api/deposit - deposit type: ', typeof deposit);
     account.balance += deposit;
     res.sendStatus(200);
 });
