@@ -13,6 +13,8 @@ const account = {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(express.static('public'));
+
 app.get('/api/balance', (req, res) => {
     res.send({
         balance: account.balance
