@@ -14,6 +14,7 @@ function init() {
 
 function onClickDeposit(event) {
     let depositAmount = $('.js-field-deposit').val();
+    $('.js-field-deposit').val('');
 
     // exit early if no value was entered
     if (!depositAmount) {
