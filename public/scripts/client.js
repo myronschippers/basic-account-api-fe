@@ -3,6 +3,7 @@ $(document).ready(init);
 function init() {
     console.log('DOM is Ready');
     $('.js-btn-deposit').on('click', onClickDeposit);
+    $('.js-btn-withdraw').on('click', onClickWithdraw);
 
     // get account balance and show on DOM
     getAccountBalance();
@@ -25,6 +26,18 @@ function onClickDeposit(event) {
     console.log('Deposit amount: ', depositAmount);
     // pull deposit amount from field and send to server
     postDeposit(depositAmount);
+}
+
+function onClickWithdraw(event) {
+    const $withdrawField = $('.js-field-withdraw');
+    let withdrawAmount = $withdrawField.val();
+    
+    if (!withdrawAmount) {
+        return false;
+    }
+    withdrawAmount = parseFloat(withdrawAmount);
+    console.log('Withdraw amount: ', withdrawAmount);
+    postWithdraw(withdrawAmount);
 }
 
 //
@@ -57,7 +70,35 @@ function postDeposit(deposit) {
     $.ajax({
         method: 'POST',
         url: '/api/deposit',
-        data: data,
+        data: JSON.stringify(data),
+        header: {
+            'Content-Type': 'application/json', 
+        },
+    })
+    .then(function(response) {
+        // successful POST response
+        console.log('POST response: ', response);
+        getAccountBalance();
+    })
+    .catch(function(err) {
+        console.log('err: ', err);
+        // error from POST response
+        alert('There was an error with your deposit.');
+    });
+}
+
+function postWithdraw(withdraw) {
+    const data = {
+        deposit: withdraw,
+    };
+    console.log('postWithdraw - data: ', data);
+    $.ajax({
+        method: 'POST',
+        url: '/api/withdraw',
+        data: JSON.stringify(data),
+        header: {
+            'Content-Type': 'application/json', 
+        },
     })
     .then(function(response) {
         // successful POST response
