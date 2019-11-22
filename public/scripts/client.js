@@ -14,8 +14,9 @@ function init() {
 // ------------------------------
 
 function onClickDeposit(event) {
-    let depositAmount = $('.js-field-deposit').val();
-    $('.js-field-deposit').val('');
+    const $depositField = $('.js-field-deposit');
+    let depositAmount = $depositField.val();
+    $depositField.val('');
 
     // exit early if no value was entered
     if (!depositAmount) {
@@ -31,6 +32,7 @@ function onClickDeposit(event) {
 function onClickWithdraw(event) {
     const $withdrawField = $('.js-field-withdraw');
     let withdrawAmount = $withdrawField.val();
+    $withdrawField.val('');
     
     if (!withdrawAmount) {
         return false;
